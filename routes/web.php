@@ -10,3 +10,9 @@ Route::get('/', function () {
 Route::get('/rex-runner', function () {
     return view('rex-runner');
 });
+Route::get('/login', function() {
+    return view('login');
+});
+Route::get('/register', function() {
+    return view('register');
+});
