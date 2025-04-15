@@ -1,4 +1,3 @@
-// Biến lưu chế độ chơi (1 hoặc 2 người)
 let gameMode = null;
 // Biến lưu độ khó cho AI (easy, medium hoặc hard)
 let aiDifficulty = null;
