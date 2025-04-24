@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class=" w-full h-screen flex justify-center items-center">
-  <div class=" flex flex-col border-2 h-[540px] justify-start items-center mr-20">
+  <div class=" flex flex-col border-2 h-[540px] justify-start items-center mr-20 mt-12">
     <div class=" flex w-full mb-30 border-b-2 pb-2 justify-center items-center">
       <p class=" text-4xl font-bold">Inventory</p>
     </div>
@@ -33,27 +33,35 @@
     </div>
 
   </div>
-
-    <div class=" grid grid-cols-6 gap 2">
-      @for ($i = 0; $i < 36; $i++)
-        @php
-          $row = floor($i / 6); // Xác định hàng (row)
-          $col = $i % 6; // Xác định cột (col)
-        @endphp
-      <div class="relative border-2 w-[90px] h-[90px]" id="cell-{{ $row }}-{{ $col }}">
-      <img class=" absolute z-0 rotate-0 transition-transform duration-300" src=" {{ asset('images/no background/cell.png') }}" draggable="false" id="bg-{{ $i }}">
+    <div>
+      <div class=" flex items-center justify-center mb-2">
+        <p class=" text-4xl font-bold">Màn {{ $level->level_number }}</p>
       </div>
-      @endfor
+      <div class=" grid grid-cols-6 gap 2">
+        @for ($i = 0; $i < 36; $i++)
+          @php
+            $row = floor($i / 6); // Xác định hàng (row)
+            $col = $i % 6; // Xác định cột (col)
+          @endphp
+        <div class="relative border-2 w-[90px] h-[90px]" id="cell-{{ $row }}-{{ $col }}">
+        <img class=" absolute z-0 rotate-0 transition-transform duration-300" src=" {{ asset('images/no background/cell.png') }}" draggable="false" id="bg-{{ $i }}">
+        </div>
+        @endfor
+      </div>
     </div>
+
 
 </div>
 
 <div id="popup" class="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50 hidden">
   <!-- Popup content -->
   <div class="bg-white rounded-2xl p-6 shadow-xl text-center max-w-sm w-full">
-    <p class="text-lg font-semibold mb-4">Hoàn thành màn chơi!</p>
-    <button onclick="closePopup()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">
-      OK
+    <p class=" text-2xl font-semibold mb-4">Hoàn thành màn chơi!</p>
+    <button onclick="nextLevel()" class="bg-green-600 hover:border-gray-400 hover:cursor-pointer border-2 text-white font-semibold px-3 py-1 mr-4 rounded-lg transition">
+      Tiếp tục
+    </button>
+    <button onclick="closePopup()" class="bg-red-600 hover:border-gray-500 hover:cursor-pointer border-2 text-white font-semibold px-3 py-1 ml-4 rounded-lg transition">
+      Thoát
     </button>
   </div>
 </div>
@@ -61,55 +69,127 @@
 </html>
 
 <script>
-  let start = false;
-  let finish = false;
   const pathMap = new Map();
   let startcellid, finishcellid;
-
+  let blockcellsarray = [];
+  let gameDataGlobal = {
+    gameSlug: "{{ $game->url }}",
+  }
+  let levelDataGlobal ={
+            level_number: "{{$level->level_number}}",
+            startX: "{{ $level->start_x }}",
+            startY: "{{ $level->start_y }}",
+            endX: "{{ $level->end_x }}",
+            endY: "{{ $level->end_y }}",
+            last: "{{$level->last}}",
+            item_a_count: "{{ $level->item_a_count }}",
+            item_b_count: "{{ $level->item_b_count }}",
+            obstacles: <?php echo $obstacles; ?>,
+        };
+  levelDataGlobal.obstacles.forEach(obstacle => {
+      const obstacle_cell_id = 'cell-' + obstacle.x + '-' + obstacle.y;
+      blockcellsarray.push(obstacle_cell_id); 
+    });
+  startcellid = 'cell-' + levelDataGlobal.startX + '-' + levelDataGlobal.startY;
+  finishcellid = 'cell-' + levelDataGlobal.endX + '-' + levelDataGlobal.endY;
+  blockcellsarray.push(startcellid);
+  blockcellsarray.push(finishcellid);
+  console.log(blockcellsarray);
+        
+  <?php
+      $obstacles = $obstacles;
+  ?>
   document.addEventListener("DOMContentLoaded", () => {
-    const randomIndexes = [];
-    while (randomIndexes.length < 2) {
-      let rand = Math.floor(Math.random() * 36); // 36 ô
-      if (!randomIndexes.includes(rand)) {
-        randomIndexes.push(rand);
-      }
-    }
+
+    const levelData = {
+            startX: "{{ $level->start_x }}",
+            startY: "{{ $level->start_y }}",
+            endX: "{{ $level->end_x }}",
+            endY: "{{ $level->end_y }}",
+            item_a_count: "{{ $level->item_a_count }}",
+            item_b_count: "{{ $level->item_b_count }}",
+            obstacles: <?php echo $obstacles; ?>,
+        };
+    console.log(levelData);
+    console.log("levelDataGlobal", levelDataGlobal);
+    // const randomIndexes = [];
+    // while (randomIndexes.length < 2) {
+    //   let rand = Math.floor(Math.random() * 36); // 36 ô
+    //   if (!randomIndexes.includes(rand)) {
+    //     randomIndexes.push(rand);
+    //   }
+    // }
     const imageOptions = [
       {src: "{{ asset('images/no background/start_cell.png') }}", id: "img-start"},
       {src: "{{ asset('images/no background/end_cell_uncomplete.png') }}", id: "img-finish"},
+      {src: "{{ asset('images/no background/block_cell.png') }}"},
     ]
-
-    randomIndexes.forEach((index, i) => {
-      const x = Math.floor(index / 6);
-      const y = index % 6; 
-      const currentCellId = `cell-${x}-${y}`;
-      if (!startcellid) {
-        startcellid = currentCellId;
-      } else {
-        finishcellid = currentCellId;
-      }
-      const targetContainer = document.getElementById(currentCellId);
+    const targetContainer = document.getElementById(startcellid);
       if (targetContainer) {
       const img = document.createElement("img");
-      img.id = imageOptions[i].id;
-      img.src = imageOptions[i].src;
+      img.id = imageOptions[0].id;
+      img.src = imageOptions[0].src;
       img.className = "absolute z-10 rotate-0 transition-transform duration-300";
       img.setAttribute("draggable", "false");
-
       targetContainer.appendChild(img);
+      }
+    const targetContainer2 = document.getElementById(finishcellid);
+    if (targetContainer) {
+    const img = document.createElement("img");
+    img.id = imageOptions[1].id;
+    img.src = imageOptions[1].src;
+    img.className = "absolute z-10 rotate-0 transition-transform duration-300";
+    img.setAttribute("draggable", "false");
+
+    targetContainer2.appendChild(img);
     }
-    })
+    levelData.obstacles.forEach(obstacle => {
+      const obstacle_cell_id = 'cell-' + obstacle.x + '-' + obstacle.y;
+      const targetContainer = document.getElementById(obstacle_cell_id);
+      if(targetContainer) {
+        const img = document.createElement("img");
+        img.id = 'block-cell' +obstacle.x;
+        img.src = imageOptions[2].src;
+        img.className = "absolute z-10";
+        img.setAttribute("draggable", "false");
+
+        targetContainer.appendChild(img);
+
+      }
+
+      
+    });
+    const randomNumber1 = document.getElementById('random-number-1');
+    const randomNumber2 = document.getElementById('random-number-2');
+    randomNumber1.textContent = levelDataGlobal.item_a_count;
+    randomNumber2.textContent = levelDataGlobal.item_b_count;
+    // randomIndexes.forEach((index, i) => {
+    //   const x = Math.floor(index / 6);
+    //   const y = index % 6; 
+    //   const currentCellId = `cell-${x}-${y}`;
+    //   if (!startcellid) {
+    //     startcellid = currentCellId;
+    //   } else {
+    //     finishcellid = currentCellId;
+    //   }
+    //   const targetContainer = document.getElementById(currentCellId);
+    //   if (targetContainer) {
+    //   const img = document.createElement("img");
+    //   img.id = imageOptions[i].id;
+    //   img.src = imageOptions[i].src;
+    //   img.className = "absolute z-10 rotate-0 transition-transform duration-300";
+    //   img.setAttribute("draggable", "false");
+
+    //   targetContainer.appendChild(img);
+    // })
   })
   
   const container1 = document.getElementById('img-container-source');
   const container2 =document.getElementById('img-container-source-2');
 
-  let random1 = getRandomInt(1,5);
-  let random2 = getRandomInt(1,5);
-  const randomNumber1 = document.getElementById('random-number-1');
-  const randomNumber2 = document.getElementById('random-number-2');
-  randomNumber1.textContent = random1;
-  randomNumber2.textContent =random2;
+  // let random1 = getRandomInt(1,5);
+  // let random2 = getRandomInt(1,5);
+
   const rotateClasses = ["rotate-0", "rotate-90", "rotate-180", "rotate-[270deg]"];
 
   const allTargets = document.querySelectorAll('[id^="cell"], #img-container-source, #img-container-source-2');
@@ -126,7 +206,7 @@
     });
     container.addEventListener('drop', (e) => {
       e.preventDefault();
-      if (e.currentTarget.id === 'img-container-source' || e.currentTarget.id === 'img-container-source-2') {
+      if (e.currentTarget.id === 'img-container-source' || e.currentTarget.id === 'img-container-source-2' || blockcellsarray.includes(e.currentTarget.id)) {
         return;
       }
       const data = e.dataTransfer.getData("text/plain");
@@ -157,7 +237,9 @@
         clonedImg.classList.add(rotateClasses[currentIndex]);
         clonedImg.dataset.rotateIndex = currentIndex;
         if(clonedImg.dataset.rotateIndex !== previousIndex) {
-          checkPower();
+          setTimeout(() => {
+            checkPower();
+          }, 1000);
         }
 
         });
@@ -167,7 +249,9 @@
         const draggedImg = document.getElementById(data);
         if (!e.currentTarget.contains(draggedImg)) {
           e.currentTarget.appendChild(draggedImg);
-          checkPower();
+          setTimeout(() => {
+            checkPower();
+          }, 1000);
         }
       }
     });
@@ -417,7 +501,7 @@
     }
     setTimeout(() => {
             showPopup();
-          }, 500);
+          }, 1000);
   }
 
   function getKeyByValue(map, searchValue) {
@@ -434,8 +518,14 @@ function showPopup() {
 }
 
 function closePopup() {
-  document.getElementById("popup").classList.add("hidden");
   location.reload(); // reload sau khi đóng popup
 }
-</script>
+function nextLevel() {
+  if(levelDataGlobal.last == 1) {
+      location.href = `/${gameDataGlobal.gameSlug}/1`
+  } else {
+    location.href = `/${gameDataGlobal.gameSlug}/${parseInt(levelDataGlobal.level_number) + 1}`
+  }
 
+}
+</script>
