@@ -9,23 +9,23 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('leaderboardentries', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('game_id')->constrained('games')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->integer('score');
-            $table->timestamp('recordAt')->useCurrent();
-            $table->timestamps();
-        });
-    }
+    // public function up(): void
+    // {
+    //     Schema::create('leaderboardentries', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->foreignId('game_id')->constrained('games')->onDelete('cascade');
+    //         $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+    //         $table->integer('score');
+    //         $table->timestamp('recordAt')->useCurrent();
+    //         $table->timestamps();
+    //     });
+    // }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('leaderboardentries');
-    }
+    // /**
+    //  * Reverse the migrations.
+    //  */
+    // public function down(): void
+    // {
+    //     Schema::dropIfExists('leaderboardentries');
+    // }
 };

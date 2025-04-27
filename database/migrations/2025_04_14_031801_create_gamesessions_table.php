@@ -9,23 +9,23 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('gamesessions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('game_id')->constrained('games')->onDelete('cascade');
-            $table->timestamp('startTime');
-            $table->timestamp('endTime')->nullable();
-            $table->enum('status', ['active', 'completed', 'paused'])->default('active');
-            $table->timestamps();
-        });
-    }
+    // public function up(): void
+    // {
+    //     Schema::create('gamesessions', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->foreignId('game_id')->constrained('games')->onDelete('cascade');
+    //         $table->timestamp('startTime');
+    //         $table->timestamp('endTime')->nullable();
+    //         $table->enum('status', ['active', 'completed', 'paused'])->default('active');
+    //         $table->timestamps();
+    //     });
+    // }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('gamesessions');
-    }
+    // /**
+    //  * Reverse the migrations.
+    //  */
+    // public function down(): void
+    // {
+    //     Schema::dropIfExists('gamesessions');
+    // }
 };
