@@ -6,7 +6,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\DashboardController;
 
 
-Route::get('/tic-tac-toe', function () {
+Route::get('/tic-tac-toe/1', function () {
     return view('tic-tac-toe');
 })->name('tic-tac-toe');
 
