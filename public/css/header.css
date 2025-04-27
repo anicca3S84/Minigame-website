@@ -83,6 +83,22 @@ img {
   z-index: var(--z-fixed);
 }
 
+.nav__logo {
+  display: flex;
+  align-items: center;
+  margin-left: -80px;
+  column-gap: .5rem;
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-semi-bold);
+  color: var(--white-color);
+}
+
+.logo-image{
+  width: 250px;
+  height: 150px;
+  cursor: pointer;
+
+}
 .nav {
   position: relative;
   height: var(--header-height);
@@ -91,15 +107,7 @@ img {
   align-items: center;
   color: var(--white-color);
 }
-.nav__logo {
-  color: var(--white-color);
-  font-weight: var(--font-semi-bold);
-  transition: color .4s;
-}
 
-.nav__logo:hover {
-  color: var(--first-color);
-}
 
 .nav__toggle, 
 .nav__close {
