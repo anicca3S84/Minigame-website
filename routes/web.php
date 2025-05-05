@@ -11,6 +11,8 @@ Route::get('/tic-tac-toe/1', function () {
 })->name('tic-tac-toe');
 
 
+
+
 Route::get('/rex-runner', function () {
     return view('rex-runner');
 });
@@ -26,7 +28,10 @@ Route::get('/test', function() {
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+
+
 Route::get('/{gameSlug}/{levelSlug}', [GameController::class, 'show'])->name('game.show');
+
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -35,6 +40,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 
+//spelling-word
+Route::get('/{gameSlug}', [GameController::class, 'showGame'])->name('game.showGame');
+Route::get('/game/{gameSlug}/topic/{topicSlug}/questions', [GameController::class, 'getQuestions'])->name('game.getQuestions');

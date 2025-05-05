@@ -13,7 +13,18 @@ class Game extends Model
         'description',
         'imageUrl',
         'category_id',
+        'gameType',
         'url',
         'isActive',
     ];
+
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
+
+    public function levels()
+    {
+        return $this->hasMany(Level::class);
+    }
 }

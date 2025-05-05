@@ -29,10 +29,13 @@
             <div class="game-grid">
                 @foreach ($games as $game)
                     <div class="game-card">
+                        @if ($game->gameType == 1)
                         <a href="{{ route('game.show', ['gameSlug' => $game->url, 'levelSlug' => 1]) }}">
+                        @else
+                        <a href="{{ route('game.show', ['gameSlug' => $game->url, 'levelSlug' => 0]) }}">
+                        @endif
                             <img src="{{ asset($game->imageUrl) }}" alt="Game Image" class="game-card__image">
                         </a>
-        
                         <div class="game-card__content">
                             <h3 class="game-card__title">{{ $game->name }}</h3>
                             <p class="game-card__creator">By Admin</p>  {{-- Nếu có creator thì lấy ra sau --}}
