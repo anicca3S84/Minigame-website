@@ -43,11 +43,11 @@
                 <input type="text" id="answerInput" maxlength="20" placeholder="Type your answer here">
             </div>
 
-            <div class="incorrect-hidden" id="failedMessage">Incorrect!</div>
+            <div style="margin-top: -10px " class="hidden" id="failedMessage">Incorrect!</div>
 
             <button onclick="checkAnswer()" id="checkAnswerBtn" class="try-button">Try</button>
 
-            <div class="success hidden" id="successMessage">🎉 Correct!</div>
+            <div style="margin-top: 15px"  class="success hidden" id="successMessage">🎉 Correct!</div>
 
             <div class="score-bar-container">
                 <div class="score-bar" id="scoreBar"></div>

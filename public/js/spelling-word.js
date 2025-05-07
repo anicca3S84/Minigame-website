@@ -30,6 +30,7 @@ function startCountDown() {
             // Hiển thị đáp án khi hết thời gian
             document.getElementById('failedMessage').classList.remove('hidden');
             document.getElementById('failedMessage').textContent = "Answer: " + questions[currentQuestionIndex].answer;
+            document.getElementById('failedMessage').style.color = 'red';
 
             setTimeout(() => {
                 currentQuestionIndex++;
@@ -107,7 +108,7 @@ function loadQuestion(index) {
 function checkAnswer() {
     const input = document.getElementById("answerInput").value.trim().toUpperCase();
     const correctAnswer = questions[currentQuestionIndex].answer;
-
+    if (input === "") return;
     if (input === correctAnswer) {
         document.getElementById("successMessage").classList.remove("hidden");
         document.getElementById("failedMessage").classList.add("hidden");
@@ -126,6 +127,7 @@ function checkAnswer() {
         }, 1000);
     } else {
         document.getElementById("failedMessage").textContent = "Incorrect!";
+        document.getElementById('failedMessage').style.color = 'red';
         document.getElementById("failedMessage").classList.remove("hidden");
         document.getElementById("checkAnswerBtn").textContent = "Try Again";
     }

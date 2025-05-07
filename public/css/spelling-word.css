@@ -15,6 +15,7 @@ h1 {
 .incorrect-hidden {
     color: red;
     font-size: 18px;
+    overflow: hidden;
 }
 
 
@@ -141,7 +142,7 @@ h1 {
 }
 
 .success {
-    color: green;
+    color: rgb(16, 188, 16);
     font-size: 24px;
     font-weight: bold;
 }
