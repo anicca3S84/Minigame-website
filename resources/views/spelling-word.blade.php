@@ -43,7 +43,7 @@
                 <input type="text" id="answerInput" maxlength="20" placeholder="Type your answer here">
             </div>
 
-            <div class="incorrect hidden" id="failedMessage">Incorrect!</div>
+            <div class="incorrect-hidden" id="failedMessage">Incorrect!</div>
 
             <button onclick="checkAnswer()" id="checkAnswerBtn" class="try-button">Try</button>
 
@@ -61,7 +61,7 @@
         <div id="endScreen" class="hidden">
             <h2>Chúc mừng! Bạn đã hoàn thành.</h2>
             <p>Tổng điểm: <span id="finalScore">0</span></p>
-            <button onclick="window.location.href='{{ route('game.showGame', [$game->url]) }}'">Play again</button>
+            <button onclick="window.location.href='{{ route('game.show', [$game->url, 0]) }}'">Play again</button>
             <button onclick="window.location.href='{{ route('dashboard') }}'">Get out</button>
 
 

@@ -44,5 +44,5 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 
 //spelling-word
-Route::get('/{gameSlug}', [GameController::class, 'showGame'])->name('game.showGame');
+// Route::get('/{gameSlug}', [GameController::class, 'showGame'])->name('game.showGame');
 Route::get('/game/{gameSlug}/topic/{topicSlug}/questions', [GameController::class, 'getQuestions'])->name('game.getQuestions');

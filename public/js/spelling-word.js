@@ -125,6 +125,7 @@ function checkAnswer() {
             loadQuestion(currentQuestionIndex);
         }, 1000);
     } else {
+        document.getElementById("failedMessage").textContent = "Incorrect!";
         document.getElementById("failedMessage").classList.remove("hidden");
         document.getElementById("checkAnswerBtn").textContent = "Try Again";
     }
@@ -145,18 +146,3 @@ document.getElementById("answerInput").addEventListener("keydown", function (eve
     }
 });
 
-// function restartGame() {
-//     // Reset các biến trò chơi
-//     currentQuestionIndex = 0;
-//     total = 0;
-//     score = 1000;
-//     scoreSaved = false;
-//     scoreInterval = null;
-
-//     // Ẩn end screen và hiển thị lại game screen
-//     document.getElementById('endScreen').classList.add('hidden');
-//     document.getElementById('gameScreen').classList.remove('hidden');
-
-//     // Bắt đầu lại trò chơi với câu hỏi đầu tiên
-//     startGame('{{ $gameSlug }}', '{{ $topicSlug }}');
-// }
