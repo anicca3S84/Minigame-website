@@ -16,7 +16,14 @@ class GameController extends Controller
                         ->where('level_number', $levelSlug)
                         ->firstOrFail();
         $obstacles = Obstacle::where('level_id', $level->id)->get();
-
         return view('test', compact('game', 'level', 'obstacles'));
+
+    }
+    public function show2($gameSlug)
+    {
+        $game = Game::where('url', $gameSlug)->firstOrFail();
+
+        return view('test2', compact('game'));
+
     }
 }

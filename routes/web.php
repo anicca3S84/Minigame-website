@@ -19,5 +19,9 @@ Route::get('/register', function() {
 Route::get('/test', function() {
     return view('test');
 });
+Route::get('/test2', function() {
+    return view('test2');
+});
 
 Route::get('/{gameSlug}/{levelSlug}', [GameController::class, 'show'])->name('game.show');
+Route::get('/{gameSlug}', [GameController::class, 'show2'])->name('game.show2');
