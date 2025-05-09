@@ -9,7 +9,7 @@
         <div class="relative w-full h-screen flex flex-col items-center justify-center">
             <img src="{{ asset('/images/flipcardgame/background/flip_card_game_bg.jpg') }}" class=" absolute inset-0 object-cover w-full h-full">
             <div class="absolute top-0 left-0 m-4 bg-white px-4 py-2 rounded-xl shadow-lg hover:cursor-pointer"
-                onclick="window.location.href='/'">
+                onclick="window.location.href='{{ route('dashboard') }}'">
                 Quay lại trang chủ
             </div>
             <div id="playTable" class="absolute flex flex-col items-center justify-center hidden">
