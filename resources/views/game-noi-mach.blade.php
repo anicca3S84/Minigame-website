@@ -96,9 +96,6 @@
   blockcellsarray.push(finishcellid);
   console.log(blockcellsarray);
         
-  <?php
-      $obstacles = $obstacles;
-  ?>
   document.addEventListener("DOMContentLoaded", () => {
 
     const levelData = {
