@@ -30,7 +30,7 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
+Route::get('/', [DashboardController::class, 'index']);
 
 //spelling-word
 // Route::get('/{gameSlug}', [GameController::class, 'showGame'])->name('game.showGame');

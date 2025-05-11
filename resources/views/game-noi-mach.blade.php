@@ -6,8 +6,14 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-<div class=" w-full h-screen flex justify-center items-center">
-  <div class=" flex flex-col border-2 h-[540px] justify-start items-center mr-20 mt-12">
+<div class=" relative w-full h-screen flex justify-center items-center">
+  <img src="{{ asset('/images/gamenoimach/game-noi-mach-bg.jpg') }}" class=" absolute inset-0 object-cover w-full h-full z-0">
+  <div class="absolute top-0 left-0 m-4 px-4 py-2 rounded-xl shadow-lg hover:cursor-pointer bg-white"
+    onclick="window.location.href='{{ route('dashboard') }}'">
+    Quay lại trang chủ
+  </div>
+<div class=" bg-white flex flex-row z-10 py-8 px-16 scale-90 rounded-2xl">
+    <div class=" flex flex-col border-2 h-[540px] justify-start items-center mr-20 mt-12">
     <div class=" flex w-full mb-30 border-b-2 pb-2 justify-center items-center">
       <p class=" text-4xl font-bold">Inventory</p>
     </div>
@@ -33,22 +39,26 @@
     </div>
 
   </div>
-    <div>
-      <div class=" flex items-center justify-center mb-2">
-        <p class=" text-4xl font-bold">Màn {{ $level->level_number }}</p>
-      </div>
-      <div class=" grid grid-cols-6 gap 2">
-        @for ($i = 0; $i < 36; $i++)
-          @php
-            $row = floor($i / 6); // Xác định hàng (row)
-            $col = $i % 6; // Xác định cột (col)
-          @endphp
-        <div class="relative border-2 w-[90px] h-[90px]" id="cell-{{ $row }}-{{ $col }}">
-        <img class=" absolute z-0 rotate-0 transition-transform duration-300" src=" {{ asset('images/no background/cell.png') }}" draggable="false" id="bg-{{ $i }}">
-        </div>
-        @endfor
-      </div>
+  <div class=" ">
+    <div class=" flex items-center justify-center mb-2">
+      <p class=" text-4xl font-bold">Màn {{ $level->level_number }}</p>
     </div>
+    <div id="timer" class=" text-xl font-bold text-red-600">
+      Thời gian: 60s
+    </div>
+    <div class=" grid grid-cols-6 gap 2">
+      @for ($i = 0; $i < 36; $i++)
+        @php
+          $row = floor($i / 6); // Xác định hàng (row)
+          $col = $i % 6; // Xác định cột (col)
+        @endphp
+      <div class="relative border-2 w-[90px] h-[90px]" id="cell-{{ $row }}-{{ $col }}">
+      <img class=" absolute z-0 rotate-0 transition-transform duration-300" src=" {{ asset('images/no background/cell.png') }}" draggable="false" id="bg-{{ $i }}">
+      </div>
+      @endfor
+    </div>
+  </div>
+</div>
 
 
 </div>
@@ -65,10 +75,32 @@
     </button>
   </div>
 </div>
+<div id="popUp" class="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-2xl p-6 shadow-xl flex flex-col items-center  max-w-sm w-full">
+        <p id="notifyContent" class=" text-2xl font-semibold mb-4">Hết thời gian!</p>
+        <button onclick="reset()" class="bg-green-600 hover:border-gray-400 hover:cursor-pointer border-2 text-white font-semibold px-3 py-1 rounded-lg transition">
+            Chơi lại
+        </button>
+    </div>
+</div>
 </body>
 </html>
 
 <script>
+  let timeLeft = 60;
+  const timerDisplay =document.getElementById("timer");
+  const popUp =document.getElementById("popUp");
+  countdown =setInterval(() => {
+    timeLeft--;
+    timerDisplay.textContent = `Thời gian: ${timeLeft}s`;
+    if(timeLeft <=0) {
+        clearInterval(countdown);
+        popUp.classList.remove("hidden");
+    }
+  }, 1000);
+  function reset() {
+      location.reload();
+  }
   const pathMap = new Map();
   let startcellid, finishcellid;
   let blockcellsarray = [];

@@ -17,7 +17,7 @@ class GameController extends Controller
 {
     $game = Game::where('url', $gameSlug)->firstOrFail();
 
-    if ($levelSlug == 1) {
+    if ($levelSlug != 0) {
         $level = Level::where('game_id', $game->id)
                       ->where('level_number', $levelSlug)
                       ->firstOrFail();
