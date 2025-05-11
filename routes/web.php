@@ -5,17 +5,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\DashboardController;
 
-
-Route::get('/tic-tac-toe/1', function () {
-    return view('tic-tac-toe');
-})->name('tic-tac-toe');
-
-
-
-
-Route::get('/rex-runner', function () {
-    return view('rex-runner');
-});
 Route::get('/login', function() {
     return view('login');
 });
@@ -41,8 +30,9 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
+Route::get('/', [DashboardController::class, 'index']);
 
 //spelling-word
 // Route::get('/{gameSlug}', [GameController::class, 'showGame'])->name('game.showGame');
 Route::get('/game/{gameSlug}/topic/{topicSlug}/questions', [GameController::class, 'getQuestions'])->name('game.getQuestions');
+

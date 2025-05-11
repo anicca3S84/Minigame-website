@@ -65,7 +65,7 @@
                 <div class=" flex justify-center">
                     <button class=" w-fit border-2 bg-blue-800 hover:bg-blue-950 hover:cursor-pointer text-white px-8 py-2 rounded-2xl font-bold" type="submit">Đăng nhập</button>
                 </div>
-                <a class=" hover:underline hover:text-blue-950" href="/"> < Quay lại</a>
+                <a class=" hover:underline hover:text-blue-950" href="/dashboard"> < Quay lại</a>
             </form>
             
         </div>

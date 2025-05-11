@@ -17,11 +17,11 @@ class GameController extends Controller
     {
         $game = Game::where('url', $gameSlug)->firstOrFail();
 
-        if ($levelSlug == 1) {
-            $level = Level::where('game_id', $game->id)
-                ->where('level_number', $levelSlug)
-                ->firstOrFail();
-            $obstacles = Obstacle::where('level_id', $level->id)->get();
+    if ($levelSlug != 0) {
+        $level = Level::where('game_id', $game->id)
+                      ->where('level_number', $levelSlug)
+                      ->firstOrFail();
+        $obstacles = Obstacle::where('level_id', $level->id)->get();
 
             return view("$gameSlug", compact('game', 'level', 'obstacles'));
         } else {
