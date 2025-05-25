@@ -12,7 +12,7 @@ function showTopicScreen() {
 }
 
 function startCountDown() {
-    score = 1000;
+    score = 1000; //Reset điểm về 1000 cho mỗi câu hỏi mới khi bắt đầu đếm ngược.
     const scoreBar = document.getElementById('scoreBar');
     const scoreText = document.getElementById('scoreText');
 
