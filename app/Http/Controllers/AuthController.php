@@ -27,7 +27,7 @@ class AuthController extends Controller
 
         if ($user && Hash::check($credentials['password'], $user->passwordHash)) {
             Auth::login($user);
-            return redirect()->intended('/dashboard'); 
+            return redirect()->intended('/'); 
         }
 
         return back()->withErrors([
@@ -68,6 +68,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/dashboard');
+        return redirect()->route('dashboard');
     }
 }

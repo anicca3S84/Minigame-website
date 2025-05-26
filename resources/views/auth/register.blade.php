@@ -58,7 +58,7 @@
                         type="submit">Đăng ký</button>
                 </div>
 
-                <a class="hover:underline hover:text-blue-950" href="/dashboard">
+                <a class="hover:underline hover:text-blue-950" href="/">
                     < Quay lại</a>
             </form>
         </div>
