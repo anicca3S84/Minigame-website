@@ -19,8 +19,7 @@
             <h2>Select a Topic</h2>
             <div class="topics">
                 @foreach ($topics as $topic)
-                    <div class="topic-card" onclick="startGame('{{ $game->url }}', '{{ $topic->slug }}')
-">
+                    <div class="topic-card" onclick="startGame('{{ $game->url }}', '{{ $topic->slug }}')">
                         <img src="{{ asset($topic->imgUrl) }}" alt="{{ $topic->title }}">
                         <h3>{{ $topic->title }}</h3>
                     </div>

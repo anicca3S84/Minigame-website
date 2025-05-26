@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Auth;
 class GameController extends Controller
 {
     public function show($gameSlug, $levelSlug)
-{
-    $game = Game::where('url', $gameSlug)->firstOrFail();
+    {
+        $game = Game::where('url', $gameSlug)->firstOrFail();
 
     if ($levelSlug != 0) {
         $level = Level::where('game_id', $game->id)
