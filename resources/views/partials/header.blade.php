@@ -16,7 +16,7 @@
 <body>
     <header class="header">
         <nav class="nav container">
-            <a href="#" class="nav__logo">
+            <a href="{{ route('dashboard')}}" class="nav__logo">
                 <img class="logo-image" src=" {{ asset('images/dashboard/logo.png') }}">
                 <h2 class="logo-text" style="margin-left: -80px">Mini Game</h2>
             </a>
@@ -26,15 +26,15 @@
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li>
-                        <a href="#" class="nav__link">Home</a>
+                        <a href="{{ route('dashboard')}}" class="nav__link">Home</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('leaderboard') }}" class="nav__link">Leaderboard</a>
                     </li>
 
                     <li>
                         <a href="#" class="nav__link">About Us</a>
-                    </li>
-
-                    <li>
-                        <a href="#" class="nav__link">Services</a>
                     </li>
 
                     <li>

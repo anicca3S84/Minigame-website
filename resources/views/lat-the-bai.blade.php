@@ -70,7 +70,7 @@
     const timerDisplay =document.getElementById("timer");
     const popUp =document.getElementById("popUp");
     const notifyContent =document.getElementById("notifyContent");
-    const countdown=null;   
+    let countdown=null;   
     for(i=1; i<=20; i++) {
         const newDiv = document.createElement("div");
         const newImg =document.createElement("img");
@@ -103,6 +103,7 @@
                         scoreDiv.textContent = `Điểm: ${score}`;
                         if(score ==10) {
                             clearInterval(countdown);
+                            saveScoreToServer();
                             setTimeout(() =>{
                                 notifyContent.textContent = "Hoàn thành trò chơi!";
                                 popUp.classList.remove("hidden");
@@ -129,6 +130,7 @@
         timerDisplay.textContent = `Thời gian: ${timeLeft}s`;
         if(timeLeft <=0) {
             clearInterval(countdown);
+            saveScoreToServer();
             notifyContent.textContent = "Hết giờ!";
             popUp.classList.remove("hidden");
         }
@@ -159,5 +161,22 @@
     }
     function reset() {
         location.reload();
+    }
+    function saveScoreToServer() {
+        fetch('{{ route('game.saveScore')}}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                game_id: {{ $game->id}},
+                score: score
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Score saved: ", data.message);
+        });
     }
 </script>

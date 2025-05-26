@@ -29,10 +29,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/leaderboard', [DashboardController::class, 'leaderboard'])->name('leaderboard');
 
 //spelling-word
 // Route::get('/{gameSlug}', [GameController::class, 'showGame'])->name('game.showGame');
 Route::get('/game/{gameSlug}/topic/{topicSlug}/questions', [GameController::class, 'getQuestions'])->name('game.getQuestions');
-
+Route::post('/game/save-score', [GameController::class, 'saveScore'])->name('game.saveScore');
+Route::get('/game/top-score/{gameId}', [GameController::class, 'getTopScores'])->name('game.getTopScores');
+Route::get('/game/search/{gameName}', [GameController::class, 'searchGame'])->name('game.searchGame');

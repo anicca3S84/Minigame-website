@@ -192,25 +192,7 @@
     const randomNumber2 = document.getElementById('random-number-2');
     randomNumber1.textContent = levelDataGlobal.item_a_count;
     randomNumber2.textContent = levelDataGlobal.item_b_count;
-    // randomIndexes.forEach((index, i) => {
-    //   const x = Math.floor(index / 6);
-    //   const y = index % 6; 
-    //   const currentCellId = `cell-${x}-${y}`;
-    //   if (!startcellid) {
-    //     startcellid = currentCellId;
-    //   } else {
-    //     finishcellid = currentCellId;
-    //   }
-    //   const targetContainer = document.getElementById(currentCellId);
-    //   if (targetContainer) {
-    //   const img = document.createElement("img");
-    //   img.id = imageOptions[i].id;
-    //   img.src = imageOptions[i].src;
-    //   img.className = "absolute z-10 rotate-0 transition-transform duration-300";
-    //   img.setAttribute("draggable", "false");
 
-    //   targetContainer.appendChild(img);
-    // })
   })
   
   const container1 = document.getElementById('img-container-source');

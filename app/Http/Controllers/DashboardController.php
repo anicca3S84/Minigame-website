@@ -15,6 +15,9 @@ class DashboardController extends Controller
         $user = Auth::user();
         return view('dashboard', compact('user', 'games'));
     }
+    public function leaderboard() {
+        return view('leaderboard');
+    }
 
 
 }
